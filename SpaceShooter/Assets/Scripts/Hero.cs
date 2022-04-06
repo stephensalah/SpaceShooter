@@ -43,6 +43,8 @@ public class Hero : MonoBehaviour
     public float speed = 10;
     public float rollMult = -45;
     public float pitchMult = 30;
+    public GameObject projectilePrefab;
+    public float projectileSpeed=40;
 
 
 
@@ -106,6 +108,11 @@ public class Hero : MonoBehaviour
            //Rotate the ship to make it feel more dynamic
            transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
 
+           //Chceck for spacebar(fire)
+           if(Input.GetKeyDown(KeyCode.Space)){
+               FireProjectile();
+           }
+
     }//end Update()
 
 
@@ -133,5 +140,14 @@ public class Hero : MonoBehaviour
             Debug.Log("Triggered by non-Enemy " + other.gameObject.name);
         }
     }//end OnTriggerEnter()
+
+    void FireProjectile(){
+        GameObject projGo = Instantiate<GameObject>(projectilePrefab);
+        projGo.transform.position = transform.position;
+        Rigidbody rb = projGo.GetComponent<Rigidbody>();
+        rb.velocity = Vector3.up * projectileSpeed;
+
+
+    }
 
 }
