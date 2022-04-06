@@ -69,8 +69,9 @@ public class Enemy : MonoBehaviour
 
      }//end Move()
 
-     void OnCollsiionEnter(Collision collision){
+     void OnCollisionEnter(Collision collision){
         GameObject otherGo = collision.gameObject;
+        Debug.Log("HIT");
 
         if(otherGo.tag=="Projectile Hero"){
             

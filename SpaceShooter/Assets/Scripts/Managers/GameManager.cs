@@ -35,14 +35,14 @@ public class GameManager : MonoBehaviour
         if (gm == null)
         {
             gm = this; //set gm to this gm of the game object
-            Debug.Log(gm);
+            
         }
         else //else if gm is not null a Game Manager must already exsist
         {
             Destroy(this.gameObject); //In this case you need to delete this gm
         }
         DontDestroyOnLoad(this); //Do not delete the GameManager when scenes load
-        Debug.Log(gm);
+       
     }//end CheckGameManagerIsInScene()
     #endregion
 
@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
         CheckGameState();
 
         //Outpot game state
-        Debug.Log("Game State " + gameState);
+        
 
     }//end Update
 
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
 
             case GameState.BeatLevel:
                 endMsg = winMessage; //set win message
-                Debug.Log("beat level");
+                
                 NextLevel(); //check for the next level
                 break;
 
@@ -258,7 +258,7 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
-        Debug.Log("Exited Game");
+  
     }//end ExitGame()
 
 
@@ -337,7 +337,7 @@ public class GameManager : MonoBehaviour
         //if the PlayerPref alredy exists for the high score
         if (PlayerPrefs.HasKey("HighScore"))
         {
-            Debug.Log("Has Key");
+            
             highScore = PlayerPrefs.GetInt("HighScore"); //set the high score to the saved high score
         }//end if (PlayerPrefs.HasKey("HighScore"))
 
