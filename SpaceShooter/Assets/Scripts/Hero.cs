@@ -3,7 +3,7 @@
  * Date Created: March 16, 2022
  * 
  * Last Edited by: Steve Salah
- * Last Edited: April 5, 2022
+ * Last Edited: April 11, 2022
  * 
  * Description: Hero ship controller
 ****/
@@ -38,13 +38,18 @@ public class Hero : MonoBehaviour
     #endregion
 
     GameManager gm; //reference to game manager
+    ObjectPool pool;
+    
 
     [Header("Ship Movement")]
     public float speed = 10;
     public float rollMult = -45;
     public float pitchMult = 30;
-    public GameObject projectilePrefab;
+    //public GameObject projectilePrefab;
     public float projectileSpeed=40;
+    public AudioClip projectileSound; //sound clip of projectile
+    private AudioSource audioSource; //audio source component
+    
 
 
 
@@ -88,6 +93,8 @@ public class Hero : MonoBehaviour
     //Start is called once before the update
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        pool = ObjectPool.POOL;//find the game manager
         gm = GameManager.GM; //find the game manager
     }//end Start()
 
@@ -111,6 +118,7 @@ public class Hero : MonoBehaviour
            //Chceck for spacebar(fire)
            if(Input.GetKeyDown(KeyCode.Space)){
                FireProjectile();
+
            }
 
     }//end Update()
@@ -142,10 +150,20 @@ public class Hero : MonoBehaviour
     }//end OnTriggerEnter()
 
     void FireProjectile(){
-        GameObject projGo = Instantiate<GameObject>(projectilePrefab);
-        projGo.transform.position = transform.position;
-        Rigidbody rb = projGo.GetComponent<Rigidbody>();
-        rb.velocity = Vector3.up * projectileSpeed;
+
+
+        if (audioSource!=null){
+            audioSource.PlayOneShot(projectileSound); //plays audio sound
+        }
+        GameObject projectile= pool.GetObject(); 
+        if(projectile!=null){
+            projectile.transform.position = transform.position;
+            Rigidbody rb = projectile.GetComponent<Rigidbody>();
+            rb.velocity = Vector3.up * projectileSpeed;
+        }
+
+        //GameObject projGo = Instantiate<GameObject>(projectilePrefab);
+       
 
 
     }

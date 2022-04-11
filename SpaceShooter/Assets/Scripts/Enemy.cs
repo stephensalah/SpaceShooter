@@ -71,11 +71,11 @@ public class Enemy : MonoBehaviour
 
      void OnCollisionEnter(Collision collision){
         GameObject otherGo = collision.gameObject;
-        Debug.Log("HIT");
+        
 
         if(otherGo.tag=="Projectile Hero"){
-            
-            Destroy(otherGo); //destroy projectile
+            otherGo.SetActive(false);//disable other object
+            //Destroy(otherGo); //destroy projectile
             GameManager.GM.UpdateScore(score); //add score
             Destroy(gameObject); //destroy enemy
         }else{
